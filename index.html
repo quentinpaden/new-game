@@ -1,0 +1,205 @@
+
+
+<body>
+<a-scene
+ inspector-plugin-recast
+ stats="false"
+ bloom
+ physics="gravity:0"
+ fog=" 
+  color: white;
+  density: 0.00; 
+  type: exponential;"  
+ vr-mode-ui="enabled: false">
+
+	<!----3D Skybox---->
+	<a-sky 
+    src=""
+    id="sky" 
+    material=" 
+      side: back; 
+      shader: skyshader; 
+      sunPosition: 17 41 27;">
+	</a-sky>
+  
+  
+	<!---Scene Camera--->
+	<a-entity 
+    id="Game_Camera" 
+    kinematic-body
+    position="0 0 -16"
+    movement-controls="speed:0.4; fly:false;constrainToNavMesh:true;"
+    >
+      <a-entity 
+        id="Camera"
+	      camera 
+	      position="0 1 0" 
+        mouse-rotate="rspeed:-3.00"
+	      cursor="rayOrgin:mouse; fuse:false;" 
+        touch-look-controls>
+			      <a-cursor fuse="false">
+			      </a-cursor>
+	    </a-entity>
+	</a-entity>
+
+	<!--Game World-->
+  <a-entity 
+    id="World" 
+    static-body="shape: box;"
+    shadow
+    scale="5 1 5" 
+    rotation="0 0 0" 
+    position="0 0 4" 
+    gltf-model="https://firebasestorage.googleapis.com/v0/b/timbre-d11e2.appspot.com/o/G8xNtAPcsu3Bi2P7IMwW%2Fnavmesh%20(6).gltf?alt=media&token=985c3bc1-6b5e-4b6b-b4c6-6ea313ec3f7d">
+  </a-entity>
+
+	<!--Game Navigation-->
+	<a-entity 
+    id="NavMesh" 
+	  nav-mesh
+    visible="true" 
+    scale="5 5 5" 
+    rotation="0 0 0" 
+    position="0 -.8 4" 
+    gltf-model="https://firebasestorage.googleapis.com/v0/b/timbre-d11e2.appspot.com/o/G8xNtAPcsu3Bi2P7IMwW%2Fnavmesh%20(6).gltf?alt=media&token=985c3bc1-6b5e-4b6b-b4c6-6ea313ec3f7d">
+	</a-entity>
+
+	<!---3D Lighting--->
+	<a-light 
+    id="Light_World" 
+    color="white" 
+    intensity="1" 
+    type="hemisphere">
+	</a-light>
+
+	<a-light 
+    id="Light_Level" 
+    scale="1 1 1" 
+    position="2 10 4" 
+    rotation="0 0 0" 
+    intensity="1" 
+    color="white" 
+    type="directional">
+	</a-light>
+
+</a-scene>
+</body>
+
+<!-- HOW TO PUBLISH A PACKAGE -->
+<!--
+  https://www.gitpod.io/
+
+  npm init -y
+
+  npm login (enter username-password-email)
+
+  npm publish .
+
+  https://www.npmjs.com/ and search for package
+
+  https://www.jsdelivr.com/features to find package
+
+  change package.json version when publishing
+--> 
+
+  <head>
+    <title> Scene. </title> 
+    <link rel="shortcut icon" href="https://firebasestorage.googleapis.com/v0/b/timbre-d11e2.appspot.com/o/Icons%2Ffavicon.ico?alt=media&token=c8d453c0-5f17-4c66-b53f-0be770e00ae4"/>
+    <meta name="theme-color" content="#fff">
+
+
+
+    <!--AFRAME-->
+    <script src="https://cdn.jsdelivr.net/npm/sesh-aframe4@0.8.3/dist/aframe-master.min.js"></script>
+
+    <script>
+      AFRAME.registerComponent('cursor-test', {
+      init: function () {
+        
+        const player = document.getElementById('Model');
+        this.el.addEventListener('click', function (evt) {
+          player.setAttribute('nav-agent', {
+              active: true,
+              destination: evt.detail.intersection.point
+            });
+            
+        });
+      }
+    });
+    </script>
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v5.1.0/dist/aframe-extras.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-navigate-on-click@1.1.0/aframe-navigate-on-click.js"></script>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/aframe-camera-cube-env@1.1.0/camera-cube-env.js"></script>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/aframe-touch-look-controls@1.1.0/touch-look-controls.js"></script>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/aframe-mouse-rotate@1.1.0/mouse-rotate.js"></script>
+
+    <!--UTILITIES-->
+    <script src="https://unpkg.com/aframe-html-shader@0.2.0/dist/aframe-html-shader.min.js"></script>
+    <script src="https://unpkg.com/aframe-template-component@^3.2.1/dist/aframe-template-component.min.js"></script>
+    <script src="https://rawgit.com/Utopiah/aframe-persist-component/master/aframe-persist-component.js"></script>  
+    <script src="https://unpkg.com/aframe-haptics-component/dist/aframe-haptics-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-debug-cursor-component/dist/aframe-debug-cursor-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-chromakey-material/dist/aframe-chromakey-material.min.js"></script>
+    
+    <script src="https://morandd.github.io/dans-aframe-camera-juggler/dans-camera-juggler.js"></script>
+    <script src="https://unpkg.com/aframe-atlas-uvs-component@^1.0.0/dist/aframe-atlas-uvs-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-orbit-controls@1.2.0/dist/aframe-orbit-controls.min.js"></script>
+    <script src="https://rawgit.com/chenzlabs/stats-in-vr/master/dist/aframe-stats-in-vr-component.min.js"></script>
+    
+    <script 
+    src="https://unpkg.com/aframe-log-component/dist/aframe-log-component.min.js"></script> 
+    <script src="https://rawgit.com/Ctrl-Alt-Zen/aframe-mobile-controls/master/components/tilt-turn/tilt-turn.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@3.0.3/dist/aframe-event-set-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-state-component@1.8.0/dist/aframe-state-component.min.js"></script>
+    <script src="https://rawgit.com/mayognaise/aframe-mouse-cursor-component/master/dist/aframe-mouse-cursor-component.min.js"></script>
+    
+    <script src="https://recast-api.donmccurdy.com/aframe-inspector-plugin-recast.js"></script>
+    <script src="https://unpkg.com/aframe-location-persistance-component/dist/aframe-location-persistance-component.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-mouse-controls@1.0.6/index.min.js"></script>
+
+    <!--MODELING--> 
+    <script src="https://cdn.rawgit.com/zcanter/aframe-gradient-sky/master/dist/gradientsky.min.js"></script>
+    <script src="https://unpkg.com/aframe-mirror-component/dist/aframe-mirror-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-text-geometry-component@^0.5.0/dist/aframe-text-geometry-component.min.js"></script> 
+    <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-randomizer-components@^3.0.1/dist/aframe-randomizer-components.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-shaders/aframe-shader-frog.js"></script>
+    <script src="https://unpkg.com/aframe-raytrace-component/dist/aframe-raytrace-component.min.js"></script>
+    
+    <!--ANIMATION-->
+    <script src="https://rawgit.com/atomicguy/aframe-fence-component/master/dist/aframe-fence-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-entity-generator-component@^3.0.0/dist/aframe-entity-generator-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-motion-capture-components/dist/aframe-motion-capture-components.min.js"></script>
+    <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script> 
+    <script src="https://rawgit.com/mayognaise/aframe-gif-component/master/dist/aframe-gif-component.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-super-shooter-kit@1.1.7/dist/aframe-super-shooter-kit.min.js"></script>
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.3.0/dist/aframe-physics-system.min.js"></script>
+    <script src="https://unpkg.com/aframe-physics-extras@0.1.2/dist/aframe-physics-extras.min.js"></script>
+    <script src="https://unpkg.com/aframe-look-at-component@0.5.1/dist/aframe-look-at-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js"></script>
+    <script src="https://rawgit.com/gmarty/aframe-ui-components/master/dist/aframe-ui-components.min.js"></script> 
+
+    <!--PARTICLES-->
+    <script src="https://unpkg.com/aframe-point-component/dist/aframe-point-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-sprite-particles-component@^0.5.0/aframe-sprite-particles-component.js"></script>
+    <script src="https://unpkg.com/aframe-particleplayer-component/dist/aframe-particleplayer-component.min.js"></script>
+    <script src="https://rawgit.com/takahirox/aframe-rain/master/build/aframe-rain.min.js"></script>
+    <script src="https://unpkg.com/aframe-mesh-particles-component@^0.4.0/aframe-mesh-particles-component.js"></script> 
+    
+    <!--AUDIO-->
+    <script src="https://unpkg.com/aframe-audioanalyser-component@^3.0.3/dist/aframe-audioanalyser-component.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/resonance-audio/build/resonance-audio.miX zx n.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-sesh-audio@0.3.0/components/noah-ra-room.min.js"></script>
+    <script src="https://cdn.rawgit.com/noahneumark/aframe-resonance-audio/fe37437/components/noah-ra-src.min.js"></script>
+
+    <script src="https://cdn.rawgit.com/noahneumark/aframe-resonance-audio/fe37437/components/noah-ra-beatsync.min.js"></script>
+
+  </head>
+
+</html>
